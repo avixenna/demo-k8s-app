@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-kejagung-ingress
+  namespace: ns-kejagung
+  annotations:
+    spec.ingressClassName: "nginx"
+spec:
+  rules:
+  - host: demo-kejagung.192.168.59.11.sslip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-kejagung
+            port:
+              number: 80

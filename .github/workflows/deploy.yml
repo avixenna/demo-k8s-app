@@ -1,0 +1,17 @@
+name: CI/CD Local K8s
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and Deploy to K8s
+        run: |
+          chmod +x ./deploy.sh
+          ./deploy.sh

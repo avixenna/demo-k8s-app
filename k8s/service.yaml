@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-kejagung
+  namespace: ns-kejagung
+spec:
+  selector:
+    app: demo-kejagung
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: ClusterIP
