@@ -2,13 +2,21 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const hello = 'Hello from CI/CD on XNAsss';
 
-
-
-const hello = 'Hello from CI/CD: Diana Sena Kurnia';
-
-
-
-app.get('/', (req, res) => res.send(hello));
+app.get('/', (req, res) => {
+  res.send(`
+    <html>
+      <head>
+        <meta http-equiv="refresh" content="5">
+        <title>CI/CD Demo</title>
+      </head>
+      <body>
+        <h1>${hello}</h1>
+        <p>Page reloads every 5 seconds.</p>
+      </body>
+    </html>
+  `);
+});
 
 app.listen(port, () => console.log(`App running on port ${port}`));
