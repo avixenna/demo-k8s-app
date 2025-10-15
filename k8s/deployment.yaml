@@ -19,3 +19,8 @@ spec:
           image: 192.168.59.1:5000/demo-kejagung:latest
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 500m
