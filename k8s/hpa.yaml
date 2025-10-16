@@ -1,27 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
 metadata:
-  name: demo-kejagung
+  name: demo-kejagung-hpa
   namespace: ns-kejagung
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: demo-kejagung
-  template:
-    metadata:
-      labels:
-        app: demo-kejagung
-    spec:
-      containers:
-      - name: demo-kejagung
-        image: your-image:latest
-        ports:
-          - containerPort: 80
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo-kejagung
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 30
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
